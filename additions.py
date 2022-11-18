@@ -1,11 +1,7 @@
 import random, os, time
-
-fileExists = os.path.isfile("load.txt")
-
-
 # HERO CLASS
 class Hero():
-    def __init__(self, name, health, strength, defence, magic):
+    def __init__(self, name,health,strength,defence,magic):
         self.name = name
         self.health = health
         self.strength = strength
@@ -19,10 +15,10 @@ class Hero():
     
     def get_health(self):
       self.start_health = self.health
-      
+
 # ENEMY CLASS
 class Enemy():
-  def __init__(self, name, health, strength, defence, magic, loot):
+  def __init__(self,name,health,strength,defence,magic, loot):
     self.name = name
     self.health = health
     self.strength = strength
@@ -41,13 +37,13 @@ class Enemy():
       self.start_health = 60
     elif self.name =="goblin":
       self.start_health = 70
-#======================================================      
+      
 
 
 def heroSelect():
   choice = int(input("welcome to the game, please select your agent \n1=Reyna\n2=Jett\n3=Brimstone\n"))
   if choice==1:
-    character = Hero("reyna", 50, 10, 10, 10, )
+    character = Hero("reyna", 50, 10, 10, 10)
     character.get_health()
     print("health =", character.health)
     print("strength =", character.strength)
@@ -56,7 +52,7 @@ def heroSelect():
     return character
   
   elif choice==2:
-    character = Hero("Jett",20,20,5,10,)
+    character = Hero("Jett",20,20,5,10)
     character.get_health()
     print("health =", character.health)
     print("strength =", character.strength)
@@ -65,7 +61,7 @@ def heroSelect():
     return character
 
   elif choice == 3:
-    character = Hero("Brimstone",60,5,15,10, )
+    character = Hero("Brimstone",60,5,15,10)
     character.get_health()
     print("testing character")
     print("health =", character.health)
@@ -88,32 +84,15 @@ goblin = Enemy("goblin", 70,5,10,1,10)
 
 enemy = enemySelect(zombie, goblin, ogre)
 
-
-def load():
-  if fileExists:
-    f = open("load.txt","r")
-    loot = int(f.readline())
-    f.close()
-    return loot
-
-def save(loot):
-  if fileExists:
-    f = open("load.txt", "w")
-    f.write(str(loot))
-    f.close()
-
-    
-if fileExists:
-  loot = load()
-else: 
-  loot = 0
-
-
 def battle():
+  
+  
   print('a wild', enemy.name, "has appeared!")
   print(character.health)
   
+  
   while enemy.health > 0 and character.health > 0:
+    
     choice = int(input('you have three options,\n1:sword\n2:magic\n3:RUN\n0:stop program\n'))
     
     if choice == 1:
@@ -141,7 +120,7 @@ def battle():
         character.magic -=10
         character.health += 15
         print("you sucessfully healed yourself but you cannot use this function anymore")
-      
+        
       else:
         print("you dont have any magic left! the enmy hit you while you were trying to heal")
         character.health -=2
@@ -162,7 +141,7 @@ def battle():
   if enemy.health <= 0:
     character.wallet += enemy.loot
     print("@@@your wallet balance is now ",character.wallet)
-# BATTLE Function end
+
       
 character = heroSelect()
 battle()
@@ -192,7 +171,6 @@ while True:
     
     battle()
   elif Choice == "N":
-    save(character.wallet)
     break
   else:
     continue
