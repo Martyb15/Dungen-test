@@ -45,7 +45,7 @@ class Enemy():
 
 
 def heroSelect():
-  choice = int(input("welcome to the game, please select your agent \n1=Reyna\n2=Jett\n3=Brimstone\n"))
+  choice = int(input("welcome to the game, please select your agent \n1) Reyna\n2) Jett\n3) Brimstone\n"))
   if choice==1:
     character = Hero("reyna", 50, 10, 10, 10, )
     character.get_health()
@@ -82,6 +82,7 @@ def enemySelect(zombie, goblin, ogre):
   return enemy
 
 # Enemy object declaration 
+
 zombie = Enemy("zombie", 60, 10, 10, 0, 10)
 ogre = Enemy("ogre",50,20,5,0,10)
 goblin = Enemy("goblin", 70,5,10,1,10)
@@ -90,10 +91,23 @@ enemy = enemySelect(zombie, goblin, ogre)
 
 
 def load():
+  print( "_____ ")                              
+  print("|  __ \ ")                          
+  print("| |  | |_   _ _ __   __ _  ___ _ __") 
+  print("| |  | | | | | '_ \ / _` |/ _ \ '_ \  ")
+  print("| |__| | |_| | | | | (_| |  __/ | | | ")
+  print("|_____/ \__,_|_| |_|\__, |\___|_| |_| ")
+  print("                     __/ | ")           
+  print("                    |___/             ")
+  time.sleep(3)
+  os.system("clear")
   if fileExists:
-    f = open("load.txt","r")
-    loot = int(f.readline())
-    f.close()
+    try:
+      f = open("load.txt","r")
+      loot = int(f.readline())
+      f.close()
+    except ValueError:
+      loot = 0
     return loot
 
 def save(loot):
@@ -103,6 +117,7 @@ def save(loot):
     f.close()
 
     
+
 if fileExists:
   loot = load()
 else: 
@@ -110,8 +125,8 @@ else:
 
 
 def battle():
-  print('a wild', enemy.name, "has appeared!")
-  print(character.health)
+  os.system('clear')
+  print('a wild', enemy.name, "has appeared!\n")
   
   while enemy.health > 0 and character.health > 0:
     choice = int(input('you have three options,\n1:sword\n2:magic\n3:RUN\n0:stop program\n'))
@@ -159,11 +174,14 @@ def battle():
         
     elif choice == 0:
       break
+    
+    
   if enemy.health <= 0:
     character.wallet += enemy.loot
     print("@@@your wallet balance is now ",character.wallet)
 # BATTLE Function end
       
+
 character = heroSelect()
 battle()
 time.sleep(2)
